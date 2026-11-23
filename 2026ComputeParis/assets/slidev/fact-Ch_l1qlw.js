@@ -1,0 +1,1 @@
+import{H as e,_ as t,b as n,z as r}from"../modules/shiki-cZIOiTAz.js";import{bt as i}from"../index-Dr-scsq4.js";var a={},o={class:`slidev-layout fact`},s={class:`my-auto`};function c(i,a){return r(),n(`div`,o,[t(`div`,s,[e(i.$slots,`default`)])])}var l=i(a,[[`render`,c]]);export{l as t};

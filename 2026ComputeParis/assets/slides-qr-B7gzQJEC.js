@@ -1,0 +1,1 @@
+var e=`/talks/2026ComputeParis/figures/slides-qr.svg`;export{e as t};
