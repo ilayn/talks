@@ -1,0 +1,12 @@
+# pnpm settings for this repo (a single package, not a monorepo).
+
+overrides:
+  # Patched dompurify for Slidev's code editor
+  monaco-editor>dompurify: ^3.5.0
+  # The nord theme pins @slidev/types 52.x; use the same 53.x as Slidev instead of a second copy
+  slidev-theme-nord>@slidev/types: ^53.1.0
+
+# Packages allowed to run install scripts (pnpm blocks them by default).
+# playwright-chromium downloads the headless browser used by `pnpm export`.
+onlyBuiltDependencies:
+  - playwright-chromium

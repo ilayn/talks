@@ -1,0 +1,96 @@
+/* Global styles, loaded on every slide. Prefer the theme's own styling; add rules here only when it has no equivalent.
+   Colours come from the nord theme's palette variables (--frost0..3, --red, --yellow, ...). */
+
+/* Placeholder that must be filled in before the talk */
+.todo {
+  padding: 0 0.4em;
+  border-radius: 0.25em;
+  background: var(--yellow);
+  color: var(--dark0);
+  font-style: italic;
+}
+
+/* Code blocks in dark mode: the theme's inline-code rule (.dark .slidev-layout code) also reaches the <code> inside
+   every code block. Its left padding indents only the first line, and its 0.9em shrinks dark-mode code blocks
+   below their light-mode size. Undo both inside <pre>, which is what the light-mode rule already does. */
+.dark .slidev-layout pre code {
+  padding: 0;
+  font-size: inherit;
+  background: transparent;
+}
+
+/* Fact layout: the theme enlarges the heading to 6rem but keeps Slidev's 2.5rem line height,
+   so the glyph spills over whatever sits above it. 1.15 is the theme's own value for cover and section headings. */
+.slidev-layout.fact h1 {
+  line-height: 1.15;
+}
+
+/* Title slide: an IPython session in IPython's default colours mapped to Nord's terminal palette.
+   The title (h1) is the input line, then paragraphs for the error it raised and the next prompt with the cursor;
+   all of them sit in a <div class="console">.
+   Turned on with `class: ipython-title` in the slide's frontmatter.
+   The selectors need .slidev-layout.cover to outrank the theme's own cover heading and subtitle styles. */
+.ipython-title .console {
+  justify-self: center; /* the cover is a centred grid: shrink the console to its widest line */
+  text-align: left; /* console lines start in the same column */
+}
+
+.slidev-layout.cover.ipython-title .console h1,
+.slidev-layout.cover.ipython-title .console p {
+  font-family: var(--slidev-code-font-family);
+  font-weight: 400;
+  white-space: nowrap; /* each line must stay on one line, as in a terminal */
+  color: var(--light2);
+}
+
+.slidev-layout.cover.ipython-title .console h1 {
+  font-size: 2rem;
+}
+
+.slidev-layout.cover.ipython-title .console p {
+  font-size: 1.25rem;
+}
+
+.slidev-layout.cover.ipython-title .console p:last-child {
+  margin-bottom: 0; /* keeps the light-mode panel evenly padded */
+}
+
+.ipython-title .console .err {
+  color: var(--red);
+}
+
+.ipython-title .console .prompt {
+  color: var(--green);
+}
+
+/* The title's prompt at the same size as the other console lines, so only the code is big */
+.ipython-title .console h1 .prompt {
+  font-size: 1.25rem;
+}
+
+.ipython-title .console .num,
+.ipython-title .console .kw {
+  color: var(--green);
+  font-weight: 700;
+}
+
+.ipython-title .console .mod {
+  color: var(--frost2);
+  font-weight: 700;
+}
+
+.ipython-title .console .cursor {
+  display: inline-block;
+  width: 0.6em; /* one character cell */
+  height: 1.2em;
+  margin-left: 0.6em; /* the space before the cursor */
+  vertical-align: -0.25em;
+  background: var(--light2);
+}
+
+/* Light mode: Nord's terminal colours are unreadable on the light background, so draw the console on a terminal-coloured panel */
+.light .ipython-title .console {
+  padding: 0.5em 1.2em;
+  border-radius: 0.3em;
+  background: var(--dark0);
+}
