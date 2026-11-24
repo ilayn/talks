@@ -1,0 +1,47 @@
+# Builds every talk with build.sh and publishes _site/ to GitHub Pages (Settings → Pages → Source: GitHub Actions)
+name: Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# One deploy at a time; a newer push waits for the running one instead of cancelling it mid-deploy
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      # Any pnpm 10 will do: it switches to the version each talk pins in its package.json "packageManager" field
+      - uses: pnpm/action-setup@v6
+        with:
+          version: 10
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+      - run: ./build.sh
+        env:
+          # playwright-chromium is only for local PDF/PNG exports
+          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5
