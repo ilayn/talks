@@ -1,15 +1,6 @@
 /* Global styles, loaded on every slide. Prefer the theme's own styling; add rules here only when it has no equivalent.
    Colours come from the nord theme's palette variables (--frost0..3, --red, --yellow, ...). */
 
-/* Placeholder that must be filled in before the talk */
-.todo {
-  padding: 0 0.4em;
-  border-radius: 0.25em;
-  background: var(--yellow);
-  color: var(--dark0);
-  font-style: italic;
-}
-
 /* Code blocks in dark mode: the theme's inline-code rule (.dark .slidev-layout code) also reaches the <code> inside
    every code block. Its left padding indents only the first line, and its 0.9em shrinks dark-mode code blocks
    below their light-mode size. Undo both inside <pre>, which is what the light-mode rule already does. */

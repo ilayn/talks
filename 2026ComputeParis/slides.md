@@ -38,8 +38,7 @@ layout: center
 - No drills planned for today {v-click="1"}
 - Be quick, but don't rush it {v-click="2"}
 - Leave your stuff behind <span v-click="4">(except RAM sticks)</span> {v-click="3"}
-- Exits: <span class="todo">ask reception</span> {v-click="5"}
-- Go to the meeting point and stay there {v-click="6"}
+- Go to the meeting point and stay there {v-click="5"}
 
 
 <!--
@@ -60,7 +59,7 @@ class: text-center
   <div><span class="name">SciPy</span><span class="ver">2.0 and later</span></div>
 </div>
 
-<div v-click class="punch">No Fortran code left</div>
+<div class="punch">No Fortran code left</div>
 
 <style>
 .pkgs {
@@ -94,7 +93,7 @@ class: text-center
 <!--
 Now this is the slide I want you to take away if nothing else...
 
-[click] Starting from SciPy 2.0, and in any version of NumPy, there will be no Fortran code left in it.
+Starting from SciPy 2.0, and in any version of NumPy, there will be no Fortran code left in it.
 -->
 
 ---
@@ -105,7 +104,7 @@ Now this is the slide I want you to take away if nothing else...
   “NumPy is just a <span v-mark.crossed-off="{ color: '#bf616a' }">wrapper around Fortran</span>”
 </div>
 
-- Click on [numpy/numpy](https://github.com/numpy/numpy) and see it for yourself
+- Go to [numpy/numpy](https://github.com/numpy/numpy) and see it for yourself
 - The tiny bit of Fortran is for **f2py**, binding **your** Fortran code to Python
 - While you are there, observe the mountain of C and C++
 
@@ -136,9 +135,9 @@ layout: fact
 
 of SciPy was Fortran 77
 
-(Around 150K LOC, 90K SLOC)
+(Around **150K** LOC, **90K** SLOC)
 
-<div v-click class="mt-10 text-xl opacity-70">Now it is, C, C++, and Cython</div>
+<div v-click class="mt-10 text-xl opacity-70">Now it is C, C++, and Cython</div>
 
 <!--
 But SciPy had a lot of F77. It had a lot; around a quarter of SciPy was F77, and it was a lot of pain to maintain for various reasons.
@@ -165,20 +164,15 @@ It was like on the left, now it looks like on the right.
 
 ![Issue 18566](/figures/Issue18566.png){.absolute .top-0 .right-14 .w-85}
 
-<v-clicks>
-
 ![Musing](/figures/musing.png){.w-120}
 
 Took 2 years and 7 months (3-4 h per week average).
 
-Started with ones I know about.
-
-Notorious ones such as ARPACK, ODEPACK.
-
 ![Comment](/figures/fp_in_2010.png){.w-120}
 
-</v-clicks>
 
+---
+hide: true
 ---
 
 # “You're holding it wrong”
@@ -227,9 +221,9 @@ Notorious ones such as ARPACK, ODEPACK.
 <!--
 But we have been having a lot of issues for decades now, and this is very well documented. So the typical Fortran-user brush-off, "they are not real scientists",
 
-[click] is exactly how C++ folks blame their users for not using it correctly, which is never going to be not funny.
+is exactly how C++ folks blame their users for not using it correctly, which is never going to be not funny.
 
-[click] I have been listening to it since the 2000s. Every time, Herb Sutter comes out: "last time we did not do it properly, but this time we did it, for real this time".
+I have been listening to it since the 2000s. Every time, Herb Sutter comes out: "last time we did not do it properly, but this time we did it, for real this time".
 -->
 
 ---
@@ -255,7 +249,8 @@ This work has nothing to do with Fortran, and if you like Fortran, keep using it
 -->
 
 ---
-
+hide: true
+---
 # The problems, in three categories
 
 <v-clicks>
@@ -284,6 +279,21 @@ Two, the code needs a lot of work.
 Three, the code does not allow for changes because there are no tests.
 -->
 
+---
+
+# Unclog the pipe, it starts to flow again
+
+<div class="flex gap-12 mt-32">
+
+<v-clicks>
+
+ 1. [**scipy/xsf**](https://github.com/scipy/xsf) : GPU-capable special functions lib, collaboration with Boost.Math team
+ 2. **Free-threading and CPython** : Old F77 code was stateful, with SAVE statements, COMMON blocks...
+ 3. **Pyodide** : Tens of thousands of lines of patches to make SciPy work, all gone after translations
+
+</v-clicks>
+
+</div>
 ---
 
 # How FORTRAN sneaks in
@@ -328,8 +338,10 @@ Three, the code does not allow for changes because there are no tests.
 
 ---
 
-# Well, until now...
+# This exists
 
+
+[semicolon-lapack](https://github.com/ilayn/semicolon-lapack)
 
 <div class="flex justify-center items-center gap-12 mt-6">
 
@@ -344,19 +356,10 @@ I could not resist the temptation and also now we have LLMs to do the much of th
 -->
 
 ---
-
-# Unclog the pipe, the flow restarts
-
-<v-clicks>
-
- 1. [scipy/xsf](https://github.com/scipy/xsf)
- 2. Free-threading and CPython
- 3. Pyodide
-
-</v-clicks>
+layout: section
 ---
 
-# BLAS and LAPACK
+# BLAS
 
 
 
@@ -394,7 +397,7 @@ A quick refresher, since most of you know this already. Memory is one long line,
 
 Row-major puts each row after the other; that's C and NumPy's default.
 
-[click] Column-major puts each column after the other; that's Fortran, and hence LAPACK. Same matrix, different neighbours.
+Column-major puts each column after the other; that's Fortran, and hence LAPACK. Same matrix, different neighbours.
 -->
 
 ---
@@ -426,9 +429,9 @@ Gin × 9, Campari × 9, Vermouth × 9
 <!--
 Making 9 Negronis is a 3×3 matrix product: each glass is an entry of C, and the three ingredients are the k index.
 
-[click] Glass by glass: pick up the gin, pour, put it down, Campari, pour, vermouth, pour, next glass. That is the dot product, row of A times column of B. 27 pours, 27 bottle pickups.
+Glass by glass: pick up the gin, pour, put it down, Campari, pour, vermouth, pour, next glass. That is the dot product, row of A times column of B. 27 pours, 27 bottle pickups.
 
-[click] Bottle by bottle: gin into all nine glasses, then Campari, then vermouth. The same 27 pours, but only 3 pickups. Each bottle is a rank-1 update: a column of A times a row of B, poured into every entry of C.
+Bottle by bottle: gin into all nine glasses, then Campari, then vermouth. The same 27 pours, but only 3 pickups. Each bottle is a rank-1 update: a column of A times a row of B, poured into every entry of C.
 
 The catch: all nine glasses have to stand on the bar at once. That is the C tile living in registers.
 -->
@@ -455,9 +458,9 @@ image: /figures/traydispenser.jpg
 <!--
 Memory is far away, so the CPU keeps what it recently used close by, in caches.
 
-[click] Think of the tray racks in the canteen. The rack holds trays; you never put a single plate on it.
+Think of the tray racks in the canteen. The rack holds trays; you never put a single plate on it.
 
-[click] A tray is a cache line. Ask for one double and you get the whole tray of eight.
+A tray is a cache line. Ask for one double and you get the whole tray of eight.
 -->
 
 ---
@@ -514,14 +517,14 @@ $$
 <!--
 Now the matrix multiplication. Each entry of C is a row of A times a column of B. With row-major storage, the row of A is along the grain.
 
-[click] But the column of B, if you line it up with the row of A, looks like this. Every step in k lands on a new cache line.
+But the column of B, if you line it up with the row of A, looks like this. Every step in k lands on a new cache line.
 
-[click] And switching to column-major only swaps the roles. One of them is always against the grain.
+And switching to column-major only swaps the roles. One of them is always against the grain.
 -->
 
 ---
 
-# GOTO mechanism
+# Enter GotoBLAS
 
 <!-- The code's line highlights make the clicks; the diagram follows them through $clicks -->
 <div class="grid grid-cols-[max-content_1fr] gap-8 items-center mt-2">
@@ -551,20 +554,20 @@ for (jc = 0; jc < n; jc += NC)
 <!--
 Goto's idea: chop the multiplication so that every piece fits one level of the memory hierarchy.
 
-[click] First a column panel of B and C.
+First a column panel of B and C.
 
-[click] Then a slice of it, KC rows of B, copied, packed, so it sits in L3.
+Then a slice of it, KC rows of B, copied, packed, so it sits in L3.
 
-[click] A block of A, packed, sits in L2.
+A block of A, packed, sits in L2.
 
-[click] A thin sliver of the packed B fits in L1.
+A thin sliver of the packed B fits in L1.
 
-[click] And a tiny tile of C stays in registers for the whole computation.
+And a tiny tile of C stays in registers for the whole computation.
 -->
 
 ---
 
-# The micro-kernel: rank-1 updates
+# The micro-kernel: rank-k updates
 
 <div class="grid grid-cols-[auto_1fr] gap-10 items-center mt-6">
 
@@ -587,17 +590,18 @@ Goto's idea: chop the multiplication so that every piece fits one level of the m
 <!--
 Inside the kernel, the C tile sits in registers.
 
-[click] Each step multiplies a column of the A sliver by a row of the B sliver: a rank-1 update, an outer product.
+Each step multiplies a column of the A sliver by a row of the B sliver: a rank-1 update, an outer product.
 
-[click] Fourteen numbers in, forty-eight multiply-adds out. And it repeats KC times.
+Fourteen numbers in, forty-eight multiply-adds out. And it repeats KC times.
 
-[click] C never goes back to memory until the end.
+C never goes back to memory until the end.
 
-[click] And because Ap and Bp were packed, each step reads the next numbers in memory. No more cutting across the grain.
+And because Ap and Bp were packed, each step reads the next numbers in memory. No more cutting across the grain.
 -->
 
 ---
-
+hide: true
+---
 # Why every level keeps up
 
 | Level     | Holds             | Size       | Reused            | Sends out    |
@@ -625,14 +629,14 @@ So how does Ap, sitting in L2, keep up? Both slivers are in L1 during a kernel c
 
 The numbers: L1 hands the kernel 6 + 8 doubles every 6 cycles, about 19 bytes per cycle, and Haswell's L1 can do 64. L2 sends Ap at 8 bytes per cycle, and it can do 64. L3 refills the Bp sliver at under a byte per cycle.
 
-[click] So a block lives where it waits: the C tile is needed every update, the Bp sliver every call, Ap every sweep.
+So a block lives where it waits: the C tile is needed every update, the Bp sliver every call, Ap every sweep.
 
-[click] And the level keeps up because every number it sends pays for many multiply-adds: NR of them for each number of Ap, MR for each number of Bp.
+And the level keeps up because every number it sends pays for many multiply-adds: NR of them for each number of Ap, MR for each number of Bp.
 -->
 
 ---
 
-# What is an Optimized BLAS
+# Optimized BLAS
 
 Each vendor does this chopping and cache aligning using their particular hardware
 
@@ -648,7 +652,7 @@ Each vendor does this chopping and cache aligning using their particular hardwar
 
 </div>
 
-Every vendor provides a C/Assembly implementation to link to F77 LAPACK
+Every vendor provides a C/Assembly implementation to, still, link to LAPACK in FORTRAN77
 
 
 ---
@@ -708,14 +712,32 @@ D = np.sqrt(-2 * G + xx[:, None] + yy)   # xx, yy: squared row norms of X and Y
 <!--
 Pairwise distances; everyone here has written this. Two lines: a matrix product, then the norms and a square root.
 
-[click] Line by line, that is all any library can do. The product writes an n by m matrix to memory, and every step after it reads the whole thing back and writes a new one, for work that is trivial.
+Line by line, that is all any library can do. The product writes an n by m matrix to memory, and every step after it reads the whole thing back and writes a new one, for work that is trivial.
 
-[click] But if you see both lines at once, all of it can happen on the C tile while it is still in the registers, in the micro-kernel we just saw. G never exists, and D is written once.
+But if you see both lines at once, all of it can happen on the C tile while it is still in the registers, in the micro-kernel we just saw. G never exists, and D is written once.
 
-[click] If only there were a technology that reads more than one line and finds a better way to run it... There is. It's called a compiler. A library only ever sees one call. So today, you are the compiler: you write that kernel by hand, or you don't get it. FlashAttention is exactly that: people hand-wrote a kernel for one expression. Same story for A x and A-transpose y in one pass, which BLIS even has inside but cannot expose, and for chains of element-wise operations.
+If only there were a technology that reads more than one line and finds a better way to run it... There is. It's called a compiler. A library only ever sees one call. So today, you are the compiler: you write that kernel by hand, or you don't get it. FlashAttention is exactly that: people hand-wrote a kernel for one expression. Same story for A x and A-transpose y in one pass, which BLIS even has inside but cannot expose, and for chains of element-wise operations.
 
 That's why we need a lower-level language whose compiler can do this for us, instead of trying to influence the hardware from the outside through a gazillion different libraries. Finding the best fusion in general is NP-hard, but any improvement is an improvement.
 -->
+
+---
+
+# Ignorance-powered Hot Takes
+
+<v-clicks>
+
+ - If a language does not have built-in complex numbers and nd-arrays, that's the wrong language
+ - The algorithms must stay in a re-usable high-level syntax and not become optimized specializations
+ - The compiler needs to parse expressions and codegen optimizations for the hardware
+ - Corollary: a library is not going to cut it. We need access to lower level microkernels
+ - BLAS served us extremely well but it is becoming yet another "blocker"
+ - The 2-language problem is actually "2nd language is unsuitable for this" problem
+ - In fact we need a 3-level language stack
+ - Audacity to demand open hardware specifications and documentation
+
+</v-clicks>
+
 
 
 ---
